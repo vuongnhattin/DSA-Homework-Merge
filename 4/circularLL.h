@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 struct NODE
 {
@@ -6,7 +6,7 @@ struct NODE
     NODE* p_next;
 };
 
-struct List //struct chứa danh sách liên kết vòng
+struct List //struct contains circular linked list
 {
     NODE* p_head;
 };

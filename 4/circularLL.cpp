@@ -1,15 +1,15 @@
-#include <iostream>
+﻿#include <iostream>
 #include "circularLL.h"
 
-void removeAll(List* &L) //hàm xóa các phần tử trong danh sách liên kết vòng
+void removeAll(List* &L) //delete all the elements in circular linked list
 {
-    if (!L) //danh sách liên kết vòng không tồn tại
+    if (!L) //circular linked list does not exist
         return;
 
-    if (!L->p_head) //danh sách liên kết vòng không chứa phần tử nào
+    if (!L->p_head) //circular linked list contains no element
         return;
 
-    NODE* node = L->p_head; //node cần được xóa
+    NODE* node = L->p_head; //need-to-be-deleted node
     do
     {
         NODE* next = node->p_next;
@@ -31,20 +31,20 @@ NODE* createNode(int data)
 NODE* getLastNode(List* &L)
 {
     NODE* lastNode = L->p_head;
-    for (; lastNode->p_next != L->p_head; lastNode = lastNode->p_next); //tìm node cuối cùng trong danh sách liên kết vòng
+    for (; lastNode->p_next != L->p_head; lastNode = lastNode->p_next); //find the last node in circular linked list
     return lastNode;
 }
 
 bool addHead(List* &L, int data)
 {
-    NODE* newNode = createNode(data); //tạo node mới
-    if (!newNode) //lỗi
+    NODE* newNode = createNode(data); //create new node
+    if (!newNode) //error
         return false;
 
-    if (!L) //danh sách liên kết vòng chưa tồn tại
+    if (!L) //circular linked list does not exist
         return false; 
 
-    if (!L->p_head) //danh sách liên kết vòng không chứa phần tử nào
+    if (!L->p_head) //circular linked list contains no element
     {
         L->p_head = newNode;
         newNode->p_next = newNode;
@@ -52,22 +52,22 @@ bool addHead(List* &L, int data)
     }
 
     NODE* lastNode = getLastNode(L);
-    lastNode->p_next = newNode; //node cuối cùng nối đến node mới
-    newNode->p_next = L->p_head; //node mới liên kết đến head hiện tại
-    L->p_head = newNode; //cập nhật head của danh sách liên kết
+    lastNode->p_next = newNode; //last node points to the new one
+    newNode->p_next = L->p_head; //new node points to current head
+    L->p_head = newNode; //update linked list head
     return true;
 }
 
 bool addTail(List* &L, int data)
 {
-    NODE* newNode = createNode(data); //tạo node mới
+    NODE* newNode = createNode(data); //create new node
     if (!newNode) //lỗi
         return false;
 
-    if (!L) //danh sách liên kết vòng chưa tồn tại
+    if (!L) //circular linked list does not exist
         return false; 
 
-    if (!L->p_head) //danh sách liên kết vòng không chứa phần tử nào
+    if (!L->p_head) //circular linked list contains no element
     {
         L->p_head = newNode;
         newNode->p_next = newNode;
@@ -75,8 +75,8 @@ bool addTail(List* &L, int data)
     }
 
     NODE* lastNode = getLastNode(L);
-    lastNode->p_next = newNode; //node cuối cùng nối đến node mới
-    newNode->p_next = L->p_head; //node mới liên kết đến head hiện tại
+    lastNode->p_next = newNode; //last node points to the new one
+    newNode->p_next = L->p_head; //new node points to current head
     return true;
 }
 
@@ -98,7 +98,7 @@ void printList(List* L)
     NODE* node = L->p_head;
     for (; node->p_next != L->p_head; node = node->p_next)
         std::cout << node->key << " ";
-    std::cout << node->key << "\n"; //in ra phần tử cuối cùng trong danh sách liên kết vòng
+    std::cout << node->key << "\n"; //print out the last element in circular linked list
 }
 
 void removeHead(List* &L)
@@ -106,19 +106,18 @@ void removeHead(List* &L)
     if (!L || !L->p_head) 
         return;
 
-    bool isOneNode = false; //biến kiểm tra danh sách có nhiều hơn một node hay không
+    bool isOneNode = false; //variable used to check if list has more than one element
     if (L->p_head == L->p_head->p_next)
         isOneNode = true;
 
-    //đảm bảo đúng với danh sách liên kết có một node
     NODE* lastNode = getLastNode(L);
-    NODE* delNode = L->p_head; //node cần xóa
+    NODE* delNode = L->p_head; //need-to-be-deleted node
     lastNode->p_next = L->p_head->p_next; 
-    L->p_head = L->p_head->p_next; //cập nhật head mới của danh sách liên kết
+    L->p_head = L->p_head->p_next; //update linked list head
     
     delete delNode;
     if (isOneNode)
-        L->p_head = nullptr; //cập nhật lại head
+        L->p_head = nullptr; //update linked list head
 }
 
 void removeTail(List* &L)
@@ -126,19 +125,19 @@ void removeTail(List* &L)
     if (!L || !L->p_head) 
         return;
 
-    bool isOneNode = false; //biến kiểm tra danh sách có nhiều hơn một node hay không
+    bool isOneNode = false; //variable used to check if list has more than one element
     if (L->p_head == L->p_head->p_next)
         isOneNode = true;
 
     //đảm bảo đúng với danh sách liên kết có một node
-    NODE* prevLastNode = L->p_head; //nút kế cuối
-    for (; prevLastNode->p_next->p_next != L->p_head; prevLastNode = prevLastNode->p_next); //tìm node cuối cùng trong danh sách liên kết vòng 
-    NODE* delNode = prevLastNode->p_next; //nút cần xóa là nút cuối cùng
+    NODE* prevLastNode = L->p_head; //node points to the last node
+    for (; prevLastNode->p_next->p_next != L->p_head; prevLastNode = prevLastNode->p_next); //find the last node in the linked list
+    NODE* delNode = prevLastNode->p_next; //need-to-be-deleted node
     prevLastNode->p_next = L->p_head;
 
     delete delNode;
     if (isOneNode)
-        L->p_head = nullptr; //cập nhật lại head
+        L->p_head = nullptr; //update linked list head
 }
 
 NODE* findNodeVal(List* &L, int val)
@@ -156,16 +155,16 @@ NODE* findNodeVal(List* &L, int val)
     return nullptr;
 }
 
-bool addAfter(List* &L, int data, int val) //thêm vào node có giá trị data vào sau node đầu tiên có giá trị val
+bool addAfter(List* &L, int data, int val) //add a node with "data" value after the first node with "val" value
 {
     if (!L || !L->p_head)
-        return false; //thêm không thành công
+        return false; //adding unsuccessfully
     
     NODE* nodeVal = findNodeVal(L, val);
-    if (!nodeVal) //không tồn tại node có giá trị val
+    if (!nodeVal) //there is no node with "val" value
         return false;
     
-    //đã tìm được node có giá trị val
+    //the node with "val" value has been found
     NODE* newNode = createNode(data);
     newNode->p_next = nodeVal->p_next;
     nodeVal->p_next = newNode;
@@ -178,25 +177,25 @@ void removeAfter(List* &L, int val)
         return;
     
     NODE* nodeVal = findNodeVal(L, val);
-    if (!nodeVal) //không tồn tại node có giá trị val
+    if (!nodeVal) //there is no node with "val" value
         return;
 
-    //đã tìm được node có giá trị val
-    //tồn tại 3 trường hợp
-    // - Tầm thường.
-    // - Danh sách có một node -> gán head bằng nullptr
-    // - Nút xóa là nút head -> gán head bằng nút kế tiếp
-    bool isOneNode = false; //biến kiểm tra danh sách có nhiều hơn một node hay không
+    //the node with "val" value has been found
+    //3 cases:
+    // - Ordinary.
+    // - Linked list with one node -> assign head to nullptr
+    // - Deleted node is head -> update head as head is the next one
+    bool isOneNode = false; //variable used to check if list has more than one element
     if (L->p_head == L->p_head->p_next)
         isOneNode = true;
 
     NODE* delNode = nodeVal->p_next;
     nodeVal->p_next = nodeVal->p_next->p_next;
 
-    if (L->p_head == delNode) //nút xóa là nút head
+    if (L->p_head == delNode) //deleted node is head
         L->p_head = L->p_head->p_next;
 
-    if (isOneNode) //danh sách có một node
+    if (isOneNode) //linked list with one node
         L->p_head = nullptr;
     delete delNode;
 }
