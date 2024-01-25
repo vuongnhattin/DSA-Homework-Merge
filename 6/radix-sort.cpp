@@ -75,7 +75,7 @@ void delTrailer(TLIST& tlist) //delete trailer linked list
 }
 
 void delLeader(LLIST& llist) //delete leader linked list
-{k
+{
     LEADER* delLeader;
     while (llist.head)
     {
