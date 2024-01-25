@@ -129,7 +129,6 @@ void removeTail(List* &L)
     if (L->p_head == L->p_head->p_next)
         isOneNode = true;
 
-    //đảm bảo đúng với danh sách liên kết có một node
     NODE* prevLastNode = L->p_head; //node points to the last node
     for (; prevLastNode->p_next->p_next != L->p_head; prevLastNode = prevLastNode->p_next); //find the last node in the linked list
     NODE* delNode = prevLastNode->p_next; //need-to-be-deleted node
