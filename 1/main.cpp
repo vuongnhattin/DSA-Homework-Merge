@@ -2,7 +2,7 @@
 using namespace std;
 
 // Global variable to keep track of the number of iterations in the interpolation search
-int count = 0;
+int cnt = 0;
 
 // Function to perform interpolation search on a sorted array
 // Returns the index of the element if found, otherwise -1
@@ -11,7 +11,7 @@ int interpolationSearch(int arr[], int n, int x) {
 
     // Perform interpolation search as long as the search space is valid
     while (low <= high && x >= arr[low] && x <= arr[high]) {
-        count++; // Increment the iteration count
+        cnt++; // Increment the iteration count
 
         if (low == high) {
             // If there's only one element left in the search space
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     }
 
     // Perform interpolation search and print the result along with the iteration count
-    cout << interpolationSearch(a, idx, x) << " - " << count << "\n";
+    cout << interpolationSearch(a, idx, x) << " - " << cnt << "\n";
 
     return 0;
 }
