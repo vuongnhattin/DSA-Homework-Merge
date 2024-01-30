@@ -1,4 +1,4 @@
-#include "command.h"
+﻿#include "command.h"
 #include <iostream>
 #include <chrono>
 #include <string.h>
@@ -40,9 +40,9 @@ void command(int argc, char* argv[])
         exit(0);
     }
 
-    std::ifstream f = openFile(argv[1]); //mở file text
-    std::string pattern(argv[2]); //lấy xâu pattern
-    int algNum = getAlg(argv[3]); //lấy thuật toán sử dụng
+    std::ifstream f = openFile(argv[1]); //open text file
+    std::string pattern(argv[2]); //get pattern string
+    int algNum = getAlg(argv[3]); //get algorithm that is going to use
     if (algNum == -1)
     {
         std::cerr << "No algorithm available!\n";
@@ -54,7 +54,7 @@ void command(int argc, char* argv[])
     auto end = std::chrono::high_resolution_clock::now();   
     auto dur = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
 
-    std::cout << res << " - " << 1.0 * dur.count()/1000000; //bắt đầu so khớp chuỗi
+    std::cout << res << " - " << 1.0 * dur.count()/1000000; //start string searching
     f.close();
 }
 
